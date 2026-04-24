@@ -1,9 +1,12 @@
 {
-  "SSMP Plugin": "https://github.com/Extremelyd1/SSMP"
-  "WeaponPaints": "https://github.com/Nereziel/cs2-WeaponPaints"
-  "WhiteList": "https://github.com/PhantomYopta/CS2_WhiteList"
-  "SimpleAdmin": "https://github.com/daffyyyy/CS2-SimpleAdmin"
-  "MenuManager": "https://github.com/NickFox007/MenuManagerCS2"
-  "PlayerSettings": "https://github.com/NickFox007/PlayerSettingsCS2"
-  "MultiAddonManager": "https://github.com/Source2ZE/MultiAddonManager"
+  "WeaponPaints": "https://github.com/Nereziel/cs2-WeaponPaints",
+  "WhiteList": "https://github.com/PhantomYopta/CS2_WhiteList",
+  "SimpleAdmin": "https://github.com/daffyyyy/CS2-SimpleAdmin",
+  "MenuManager": "https://github.com/NickFox007/MenuManagerCS2",
+  "PlayerSettings": "https://github.com/NickFox007/PlayerSettingsCS2",
+  "MultiAddonManager": "https://github.com/Source2ZE/MultiAddonManager",
+  "Admin Bridge": "https://github.com/ClankerShitTwo/AdminBridge",
+  "Fun Powers": "https://github.com/ClankerShitTwo/FunPowers",
+  "MVP Sounds Fix": "https://github.com/ClankerShitTwo/MVPSoundsFix",
+  "PropHunt": "https://github.com/ClankerShitTwo/PropHunt"
 }
