@@ -1,0 +1,7 @@
+# IDEs
+.idea/
+.vscode/
+
+# Script output / temporary files
+*.zip
+*.tmp
