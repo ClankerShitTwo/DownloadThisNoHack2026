@@ -64,12 +64,41 @@ foreach ($link in $repos) {
             Invoke-WebRequest -Uri $downloadUrl -OutFile $destination
             
             Write-Host "Extracting $fileName..."
-            Expand-Archive -Path $destination -DestinationPath $targetDir -Force
             
-            # Remove the zip file after extracting to keep things clean
-            Remove-Item -Path $destination -Force
-            
-            Write-Host "Successfully downloaded and installed $repo." -ForegroundColor DarkGreen
+            $7zPath = "C:\Program Files\7-Zip\7z.exe"
+            if (Test-Path $7zPath) {
+                try {
+                    # Run 7-Zip and capture output to prevent it from cluttering the console
+                    $7zArgs = "x", "-y", "-o$targetDir", $destination
+                    & $7zPath $7zArgs | Out-Null
+                    
+                    if ($LASTEXITCODE -eq 0) {
+                        Remove-Item -Path $destination -Force
+                        Write-Host "Successfully downloaded and installed $repo (extracted via 7-Zip)." -ForegroundColor DarkGreen
+                    } else {
+                        Write-Host "7-Zip extraction failed for $repo with exit code $LASTEXITCODE." -ForegroundColor Red
+                    }
+                } catch {
+                    Write-Host "Failed to extract $repo with 7-Zip. Error: $_" -ForegroundColor Red
+                }
+            } else {
+                try {
+                    Expand-Archive -Path $destination -DestinationPath $targetDir -Force -ErrorAction Stop
+                    
+                    # Remove the zip file after extracting to keep things clean
+                    Remove-Item -Path $destination -Force
+                    
+                    Write-Host "Successfully downloaded and installed $repo." -ForegroundColor DarkGreen
+                } catch {
+                    # Check if the file is a RAR masquerading as a ZIP
+                    $header = Get-Content -Path $destination -TotalCount 1 -ErrorAction SilentlyContinue
+                    if ($null -ne $header -and $header -match "^Rar!") {
+                        Write-Host "Extraction failed: The downloaded file '$fileName' is actually a RAR archive. Please extract it manually, or install 7-Zip to extract it automatically." -ForegroundColor Yellow
+                    } else {
+                        Write-Host "Extraction failed: The ZIP file might be corrupted. Error: $_" -ForegroundColor Red
+                    }
+                }
+            }
         } else {
             Write-Host "No .zip asset found for $repo." -ForegroundColor Yellow
         }
